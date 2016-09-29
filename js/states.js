@@ -30,8 +30,60 @@
 
   }
 
+  class Places {
+    // prepare the data
+    constructor(){
+      this.places = ['HI', 'CA', 'NY'];
+    }
+
+    // return a single dom element to be added to the view
+    render(){
+      const view = document.createElement('div');
+      const list = document.createElement('ul');
+
+      const items = this.places.map( place => {
+        let item = document.createElement('li');
+        item.innerHTML = place;
+        return item;
+      });
+
+      items.forEach( list.appendChild.bind(list) );
+
+      view.appendChild(list);
+      return view;
+    }
+
+  }
+
+  class Spaceships {
+    // prepare the data
+    constructor(){
+      this.spaceships = ['Serenity', 'Enterprise', 'Millenium Falcon'];
+    }
+
+    // return a single dom element to be added to the view
+    render(){
+      const view = document.createElement('div');
+      const list = document.createElement('ul');
+
+      const items = this.spaceships.map( spaceship => {
+        let item = document.createElement('li');
+        item.innerHTML = spaceship;
+        return item;
+      });
+
+      items.forEach( list.appendChild.bind(list) );
+
+      view.appendChild(list);
+      return view;
+    }
+
+  }
+
   window.App.states = {
-    People
+    People,
+    Places,
+    Spaceships
   };
 
 }(window));
