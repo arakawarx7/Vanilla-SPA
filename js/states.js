@@ -1,6 +1,6 @@
 (function(window) {
   // namespace our App
-  window.App = window.App || {};
+  window.app = window.app || {};
 
   // each state will prepare the data to be rendered
   // then have a function that returns the new state dom tree
@@ -116,7 +116,7 @@
 
   }
 
-  window.App.states = {
+  window.app.states = {
     People,
     Places,
     Spaceships

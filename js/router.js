@@ -2,7 +2,7 @@
 
 (function(window) {
   // namespacing App
-  window.App = window.App || {};
+  window.app = window.app || {};
 
   // map "routes" to "states"
   class Router {
@@ -17,13 +17,13 @@
 
       switch(route){
         case 'people':
-          state = new App.states.People();
+          state = new app.states.People();
           break;
         case 'places':
-          state = new App.states.Places();
+          state = new app.states.Places();
           break;
         case 'spaceships':
-          state = new App.states.Spaceships();
+          state = new app.states.Spaceships();
           break;
       }
 
@@ -36,6 +36,6 @@
     }
   }
 
-  window.App.Router = new Router('container');
+  window.app.Router = new Router('container');
 
 }(window));
