@@ -8,7 +8,12 @@
   class People {
     // prepare the data
     constructor(){
-      this.people = ['jon', 'joe', 'ray'];
+      // execute an xhr request to http://swapi.co/api/people endpoint
+      this.people = [];
+      App.utils.Get('http://swapi.co/api/people', (data) => {
+        console.log("data", data);
+        // this.people = data.results;
+      });
     }
 
     // return a single dom element to be added to the view
