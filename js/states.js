@@ -10,27 +10,36 @@
     constructor(){
       // execute an xhr request to http://swapi.co/api/people endpoint
       this.people = [];
+      this.ready = null;
       App.utils.Get('http://swapi.co/api/people', (data) => {
-        console.log("data", data);
-        // this.people = data.results;
+        const parsedPeopleData = JSON.parse(data);
+        this.people = parsedPeopleData.results;
+        this.render(this.ready);
       });
     }
 
-    // return a single dom element to be added to the view
-    render(){
+    // render the data, when data is ready
+    // sets the "ready to rendor" callback
+    rendered(callback){
+      this.ready = callback;
+    }
+
+    // send the final rendered dom element to callback
+    // readyFunc : function(element)
+    render(readyFunc){
       const view = document.createElement('div');
       const list = document.createElement('ul');
 
       const items = this.people.map( person => {
         let item = document.createElement('li');
-        item.innerHTML = person;
+        item.innerHTML = person.name;
         return item;
       });
 
       items.forEach( list.appendChild.bind(list) );
 
       view.appendChild(list);
-      return view;
+      readyFunc(view);
     }
 
   }
