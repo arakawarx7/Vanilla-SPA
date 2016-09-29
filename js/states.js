@@ -14,8 +14,17 @@
     // return a single dom element to be added to the view
     render(){
       const view = document.createElement('div');
-      view.innerHTML = 'it is working';
+      const list = document.createElement('ul');
 
+      const items = this.people.map( person => {
+        let item = document.createElement('li');
+        item.innerHTML = person;
+        return item;
+      });
+
+      items.forEach( list.appendChild.bind(list) );
+
+      view.appendChild(list);
       return view;
     }
 
