@@ -8,9 +8,13 @@
   class People {
     // prepare the data
     constructor(){
-      // execute an xhr request to http://swapi.co/api/people endpoint
+      // initial state
       this.people = [];
-      this.ready = null;
+
+      // callback function to run after data is ready
+      this.ready = placeholder => true;
+
+      // execute an xhr request to http://swapi.co/api/people endpoint
       App.utils.Get('http://swapi.co/api/people', (data) => {
         const parsedPeopleData = JSON.parse(data);
         this.people = parsedPeopleData.results;
@@ -45,51 +49,69 @@
   }
 
   class Places {
-    // prepare the data
+
     constructor(){
-      this.places = ['HI', 'CA', 'NY'];
+      this.places = [];
+      this.ready = placeholder => true;
+
+      App.utils.Get('http://swapi.co/api/planets', (data) => {
+        this.places = JSON.parse(data).results;
+        this.render(this.ready);
+      });
     }
 
-    // return a single dom element to be added to the view
-    render(){
+    rendered(callback){
+      this.ready = callback;
+    }
+
+    render(readyFunc){
       const view = document.createElement('div');
       const list = document.createElement('ul');
 
       const items = this.places.map( place => {
         let item = document.createElement('li');
-        item.innerHTML = place;
+        item.innerHTML = place.name;
         return item;
       });
 
       items.forEach( list.appendChild.bind(list) );
 
       view.appendChild(list);
-      return view;
+      readyFunc(view);
     }
 
   }
 
   class Spaceships {
-    // prepare the data
+
     constructor(){
-      this.spaceships = ['Serenity', 'Enterprise', 'Millenium Falcon'];
+      this.spaceships = [];
+      this.ready = placeholder => true;
+
+      App.utils.Get('http://swapi.co/api/starships', (data) => {
+        this.spaceships = JSON.parse(data).results;
+        this.render(this.ready);
+      });
     }
 
-    // return a single dom element to be added to the view
-    render(){
+    rendered(callback){
+      this.ready = callback;
+    }
+
+    render(readyFunc){
       const view = document.createElement('div');
       const list = document.createElement('ul');
 
       const items = this.spaceships.map( spaceship => {
         let item = document.createElement('li');
-        item.innerHTML = spaceship;
+        item.innerHTML = spaceship.name;
         return item;
       });
 
       items.forEach( list.appendChild.bind(list) );
 
       view.appendChild(list);
-      return view;
+      readyFunc(view);
     }
 
   }
