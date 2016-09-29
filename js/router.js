@@ -25,6 +25,8 @@
         case 'spaceships':
           state = new app.states.Spaceships();
           break;
+        default:
+          state = new app.states.Default();
       }
 
       // wait for state to be rendered
@@ -37,5 +39,9 @@
   }
 
   window.app.Router = new Router('container');
+
+  // restore state on load
+  let initialRoute = window.location.hash ? window.location.hash.substr(1) : '';
+  window.app.Router.navigate( initialRoute );
 
 }(window));

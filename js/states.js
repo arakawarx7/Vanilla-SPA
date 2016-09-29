@@ -1,9 +1,39 @@
+/*
+ * A State is a class with the interface
+ * {
+ *   rendered : Element->Void->Void
+ * }
+ */
+
 (function(window) {
   // namespace our App
   window.app = window.app || {};
 
   // each state will prepare the data to be rendered
   // then have a function that returns the new state dom tree
+
+  class Default {
+    constructor(){
+      this.title = 'Vanilla SPA';
+      this.ready = placeholder => true;
+    }
+
+    rendered(callback){
+      // render now
+      this.render(callback);
+    }
+
+    render(readyFunc){
+      const view = document.createElement('div');
+      const header = document.createElement('h2');
+
+      header.innerHTML = this.title;
+
+      view.appendChild(header);
+      readyFunc(view);
+    }
+
+  }
 
   class People {
     // prepare the data
@@ -117,6 +147,7 @@
   }
 
   window.app.states = {
+    Default,
     People,
     Places,
     Spaceships
